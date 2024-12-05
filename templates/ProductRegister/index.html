@@ -1,0 +1,35 @@
+{% extends "Base/index.html" %}
+{{ super() }}
+
+{% block content %}
+<main>
+    <h1>Cadastro de Produtos</h1>
+    <p>Preencha os detalhes do produtos para adicioná-lo ao sistema</p>
+
+    <section>
+        <form class="form-register" action="">
+            <label>Nome do produto:</label>
+            <input type="text" placeholder="Digite o nome do produto">
+            <label>Descrição:</label>
+            <textarea placeholder="Digite uma breve descrição"></textarea>
+            <label>Categoria:</label>
+            <select>
+                <option selected>Selecione uma categoria</option>
+                <option value="1">Alimentos</option>
+                <option value="2">Bebidas</option>
+                <option value="3">Produtos de limpeza</option>
+                <option value="4">Higiene pessoal</option>
+            </select>
+            <label>Preço R$:</label>
+            <input type="text" placeholder="Digite o preço do produto">
+            <label>Data de validade:</label>
+            <input type="date">
+            <button type="submit" class="btn-submit">Cadastrar produto</button>
+
+        </form>
+
+    </section>
+
+</main>
+
+{% endblock %}
