@@ -1,0 +1,34 @@
+{% extends "Base/index.html" %}
+{{ super() }}
+
+{% block content %}
+<main>
+    <section class="wellcome">
+        <h1>Bem-vindo ao SuperSelect</h1>
+
+        <p>Gerencie produtos, vizualize relatórios e otimize o controle de seu super mercado.</p>
+
+    </section>
+    <section class="cards-area">
+        <div class="card">
+            <h3>Produtos</h3>
+            <p>Explore e gerencie o catálogo de produtos disponiveis.</p>
+            <button>Acessar</button>
+        </div>
+        <div class="card">
+            <h3>Produtos</h3>
+            <p>Explore e gerencie o catálogo de produtos disponiveis.</p>
+            <button>Acessar</button>
+        </div>
+
+        <div class="card">
+            <h3>Produtos</h3>
+            <p>Explore e gerencie o catálogo de produtos disponiveis.</p>
+            <a href="/admCadastrarProdutos">Acessar</a>
+        </div>
+    </section>
+</main>
+<footer>
+    2024 SuperSelect. Todos os direitos reservados à <a href="https://github.com/ademirMaltazard">@ademirMaltazard</a>.
+</footer>
+{% endblock %}
