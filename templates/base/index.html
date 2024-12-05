@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Select</title>
+    <link rel="stylesheet" href=" {{ url_for('static', filename='css/base.css') }}">
+</head>
+<body>
+    {% if True %}
+    <nav>
+        <h2>Super Select</h2>
+        <div class="butons">
+            <a class="nav-button" href="/">Produtos</a>
+            <a class="nav-button" href="/">Relatórios</a>
+            <a class="nav-button" href="/">Configurações</a>
+            <a class="nav-button" href="/">Sair</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+</body>
