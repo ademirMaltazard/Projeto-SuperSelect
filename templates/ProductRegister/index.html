@@ -9,11 +9,11 @@
     <section>
         <form class="form-register" action="">
             <label>Nome do produto:</label>
-            <input type="text" placeholder="Digite o nome do produto">
+            <input type="text" name="name" placeholder="Digite o nome do produto">
             <label>Descrição:</label>
-            <textarea placeholder="Digite uma breve descrição"></textarea>
+            <textarea name="description" placeholder="Digite uma breve descrição"></textarea>
             <label>Categoria:</label>
-            <select>
+            <select name="category">
                 <option selected>Selecione uma categoria</option>
                 <option value="1">Alimentos</option>
                 <option value="2">Bebidas</option>
@@ -21,13 +21,12 @@
                 <option value="4">Higiene pessoal</option>
             </select>
             <label>Preço R$:</label>
-            <input type="text" placeholder="Digite o preço do produto">
+            <input type="text" name="price" placeholder="Digite o preço do produto">
             <label>Data de validade:</label>
-            <input type="date">
+            <input type="date" name="expiration">
             <button type="submit" class="btn-submit">Cadastrar produto</button>
 
         </form>
-
     </section>
 
 </main>
