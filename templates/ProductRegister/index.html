@@ -3,10 +3,11 @@
 
 {% block content %}
 <main>
-    <h1>Cadastro de Produtos</h1>
-    <p>Preencha os detalhes do produtos para adicioná-lo ao sistema</p>
-
-    <section>
+    <section class="title-area">
+        <h1>Cadastro de Produtos</h1>
+        <p>Preencha os detalhes do produtos para adicioná-lo ao sistema</p>
+    </section>
+    <section class="content-area">
         <form class="form-register" action="">
             <label>Nome do produto:</label>
             <input type="text" name="name" placeholder="Digite o nome do produto">
@@ -25,10 +26,8 @@
             <label>Data de validade:</label>
             <input type="date" name="expiration">
             <button type="submit" class="btn-submit">Cadastrar produto</button>
-
         </form>
     </section>
-
 </main>
 
 {% endblock %}
