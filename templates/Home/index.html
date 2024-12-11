@@ -3,32 +3,36 @@
 
 {% block content %}
 <main>
-    <section class="wellcome">
+    <section class="title-area">
         <h1>Bem-vindo ao SuperSelect</h1>
 
         <p>Gerencie produtos, vizualize relatórios e otimize o controle de seu super mercado.</p>
 
     </section>
-    <section class="cards-area">
+    <section class="content-area">
         <div class="card">
             <h3>Produtos</h3>
-            <p>Explore e gerencie o catálogo de produtos disponiveis.</p>
-            <button class="btn-submit">Acessar</button>
+            <p class="card-description">Explore e gerencie o catálogo de produtos disponiveis.</p>
+            <a href="/listagemProdutos" class="btn-submit">Acessar</a>
         </div>
+        {% if user.get('type') == 'admin' %}
+        <div class="card">
+            <h3>Cadastrar produto</h3>
+            <p class="card-description">Adicione um novo produto ao estoque.</p>
+            <a href="/admCadastrarProdutos" class="btn-submit">Cadastrar</a>
+        </div>
+        {% endif %}
         <div class="card">
             <h3>Relatórios</h3>
-            <p>Visualize análizes detalhadas sobre estoque e validade.</p>
-            <button class="btn-submit">Vizualizar</button>
+            <p class="card-description">Visualize análizes detalhadas sobre estoque e validade.</p>
+            <a href="/" class="btn-submit">Vizualizar</a>
         </div>
 
         <div class="card">
             <h3>Configurações</h3>
-            <p>Atualize suas prefenrências de informações e conta.</p>
-            <button class="btn-submit">Configurar</button>
+            <p class="card-description">Atualize suas prefenrências de informações e conta.</p>
+            <a href="/" class="btn-submit">Configurar</a>
         </div>
     </section>
 </main>
-<footer>
-    2024 SuperSelect. Todos os direitos reservados à <a href="https://github.com/ademirMaltazard">@ademirMaltazard</a>.
-</footer>
 {% endblock %}
