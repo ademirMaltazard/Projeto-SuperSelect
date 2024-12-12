@@ -15,8 +15,13 @@ user = [{
 ]
 
 products = [{'id':'00', 'name': 'teste', 'description': 'teste', 'category': 'teste', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'00', 'name': 'teste', 'description': 'teste', 'category': 'teste', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'00', 'name': 'teste', 'description': 'teste', 'category': 'teste', 'price': 'teste', 'expiration': 'teste'}]
+            {'id':'01', 'name': 'teste1', 'description': 'teste', 'category': 'teste1', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'02', 'name': 'teste2', 'description': 'teste', 'category': 'teste2', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'03', 'name': 'teste3', 'description': 'teste', 'category': 'teste3', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'04', 'name': 'teste4', 'description': 'teste', 'category': 'teste4', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'05', 'name': 'teste5', 'description': 'teste', 'category': 'teste5', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'06', 'name': 'teste6', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'07', 'name': 'teste7', 'description': 'teste', 'category': 'teste7', 'price': 'teste', 'expiration': 'teste'}]
 
 
 
@@ -47,7 +52,26 @@ def productRegister():
 
 @app.route("/listagemProdutos", methods= ['GET', 'POST'])
 def productsList():
-    return render_template("Products/index.html", products= products)
+    startPoint = 0
+    totalPages = 0
+    currentPage = 1
+
+    if startPoint < 0: startPoint = 0
+
+    for i in range(0, len(products)):
+        if i % 5 == 0:
+            totalPages+=1
+
+
+
+    productsToShow = products[startPoint : startPoint+5]
+    print(len(products))
+    return render_template("Products/index.html",
+                           products= productsToShow,
+                           length= len(products),
+                           totalPages= totalPages,
+                           currentPage= currentPage,
+                           user= user[0])
 
 
 if __name__ == "__main__":
