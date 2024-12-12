@@ -21,7 +21,14 @@ products = [{'id':'00', 'name': 'teste', 'description': 'teste', 'category': 'te
             {'id':'04', 'name': 'teste4', 'description': 'teste', 'category': 'teste4', 'price': 'teste', 'expiration': 'teste'},
             {'id':'05', 'name': 'teste5', 'description': 'teste', 'category': 'teste5', 'price': 'teste', 'expiration': 'teste'},
             {'id':'06', 'name': 'teste6', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'07', 'name': 'teste7', 'description': 'teste', 'category': 'teste7', 'price': 'teste', 'expiration': 'teste'}]
+            {'id':'07', 'name': 'teste7', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'08', 'name': 'teste8', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'09', 'name': 'teste9', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'10', 'name': 'teste10', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'11', 'name': 'teste11', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'12', 'name': 'teste12', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
+            {'id':'13', 'name': 'teste13', 'description': 'teste', 'category': 'teste7', 'price': 'teste', 'expiration': 'teste'}
+            ]
 
 
 
@@ -34,7 +41,7 @@ def home():
     print(user[1])
     if user[1].get('type') == 'admin':
         print('administrador')
-    return render_template("Home/index.html", user= user[1])
+    return render_template("Home/index.html", user= user[0])
 
 @app.route("/admCadastrarProdutos", methods= ['GET', 'POST'])
 def productRegister():
@@ -54,7 +61,7 @@ def productRegister():
 def productsList():
     startPoint = 0
     totalPages = 0
-    currentPage = 1
+    currentPage = request.args.get('currentPage', 1, type=int)
 
     if startPoint < 0: startPoint = 0
 
@@ -62,7 +69,7 @@ def productsList():
         if i % 5 == 0:
             totalPages+=1
 
-
+    startPoint = (currentPage - 1) * 5
 
     productsToShow = products[startPoint : startPoint+5]
     print(len(products))
