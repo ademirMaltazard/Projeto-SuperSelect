@@ -7,34 +7,46 @@
         <h1>Listagem de Produtos</h1>
         <p> Veja todos os produtos cadastrados no sistema.</p>
     </section>
-    <section class="content-area">
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th class="th-name">Nome do produto</th>
-                <th>Categoria</th>
-                <th>Preço (R$)</th>
-                <th>Data de validade</th>
-                <th>Ações</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for product in products %}
-            <tr>
-                <td>00</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.expiration }}</td>
-                <td>
-                    <button class="btn-azul">Comentários</button>
-                    <button class="btn-vermelho">Deletar</button>
-                </td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <section class="content-area table-area">
+        {% if length > 0 %}
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th class="th-name">Nome do produto</th>
+                    <th>Categoria</th>
+                    <th>Preço (R$)</th>
+                    <th>Data de validade</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>00</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.expiration }}</td>
+                    <td>
+                        <button class="btn-azul">Comentários</button>
+                        <button class="btn-vermelho">Deletar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button class="btn-pagination" ><</button>
+                <p>Pagina {{ currentPage }}de {{ totalPages }}</p>
+                <button class="btn-pagination">></button>
+            </div>
+        {% else %}
+            <h2> Não há produtos cadastrados!</h2>
+            {% if user.get('type') == 'admin' %}
+                <a class="btn-submit" href="/admCadastrarProdutos">Cadastrar</a>
+            {% endif %}
+        {% endif %}
     </section>
 </main>
 {% endblock %}
