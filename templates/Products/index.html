@@ -28,18 +28,32 @@
                     <td>{{ product.category }}</td>
                     <td>{{ product.price }}</td>
                     <td>{{ product.expiration }}</td>
-                    <td>
-                        <button class="btn-azul">Comentários</button>
-                        <button class="btn-vermelho">Deletar</button>
+                    <td class="btn-action">
+                        <a href="/" class="btn-blue">
+                            <img class="pagination-icon" src="{{ url_for('static', filename='imagens/chat-square-text.svg') }}">
+                            Comentários
+                        </a>
+                        <a href="/" class="btn-red">
+                            <img class="pagination-icon" src="{{ url_for('static', filename='imagens/trash.svg') }}">
+                            Deletar
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
             <div class="pagination">
-                <button class="btn-pagination" ><</button>
-                <p>Pagina {{ currentPage }}de {{ totalPages }}</p>
-                <button class="btn-pagination">></button>
+                {% if currentPage > 1 %}
+                <a href="?currentPage={{ currentPage - 1 }}" class="btn-pagination" >
+                    <img class="pagination-icon" src="{{ url_for('static', filename='imagens/chevron-left.svg') }}">
+                </a>
+                {% endif %}
+                <p>Pagina {{ currentPage }} de {{ totalPages }}</p>
+                {% if currentPage < totalPages %}
+                <a href="?currentPage={{ currentPage + 1 }}" class="btn-pagination">
+                    <img class="pagination-icon" src="{{ url_for('static', filename='imagens/chevron-right.svg') }}">
+                </a>
+                {% endif %}
             </div>
         {% else %}
             <h2> Não há produtos cadastrados!</h2>
