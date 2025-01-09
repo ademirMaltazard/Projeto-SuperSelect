@@ -6,7 +6,7 @@
 
 body {
     background-color: #18ab18;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
@@ -15,6 +15,7 @@ body {
 main {
     background-color: #e1e1e1;
     display: flex;
+    min-height: 80vh;
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -27,6 +28,8 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 10px 30px;
+    min-height: 5vh;
+    height: 8vh;
 }
 
 .logo-area {
@@ -249,12 +252,12 @@ td a {
 
 footer {
     width: 100vw;
-    min-height: 9vh;
+    min-height: 5vh;
+    height: 8vh;
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
-    height: inherit;
 }
 
 .link-github {
