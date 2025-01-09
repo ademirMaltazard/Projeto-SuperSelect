@@ -10,12 +10,12 @@
     <img src="{{ url_for('static', filename='imagens/logo_SS.png') }}" alt="logo da aplicação">
     <h1>Super Select</h1>
     <p>Bem vindo! faça seu login para continuar.</p>
-    <form action="">
-        <label for="login">Login:</label>
-        <input id="login" type="text" placeholder="Insira seu login">
+    <form action="{{url_for('login')}}" method="POST">
+        <label for="email">Email:</label>
+        <input id="email" type="text" name="email" placeholder="Insira seu login">
         <br/>
         <label>Senha:</label>
-        <input id="password" type="password" placeholder="Insira sua senha">
+        <input id="password" type="password" name="password" placeholder="Insira sua senha">
         <button type="submit" class="btn-submit">Entrar</button>
     </form>
 
