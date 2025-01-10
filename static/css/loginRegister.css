@@ -56,6 +56,11 @@ input {
     padding: 2px 5px;
 }
 
+.description {
+    font-size: 10px;
+    display: flex;
+}
+
 .alert {
     font-size: 12px;
     margin-top: 3px;
