@@ -57,7 +57,7 @@
             </div>
         {% else %}
             <h2> Não há produtos cadastrados!</h2>
-            {% if user.get('type') == 'admin' %}
+            {% if current_user.tipo == 'admin' %}
                 <a class="btn-submit" href="/admCadastrarProdutos">Cadastrar</a>
             {% endif %}
         {% endif %}

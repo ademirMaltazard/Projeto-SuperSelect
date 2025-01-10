@@ -4,7 +4,7 @@
 {% block content %}
 <main>
     <section class="title-area">
-        <h1>Bem-vindo ao SuperSelect</h1>
+        <h1>Bem-vindo ao SuperSelect, {{current_user.nome}}!</h1>
 
         <p>Gerencie produtos, vizualize relatórios e otimize o controle de seu super mercado.</p>
 
@@ -15,7 +15,7 @@
             <p class="card-description">Explore e gerencie o catálogo de produtos disponiveis.</p>
             <a href="/listagemProdutos" class="btn-submit">Acessar</a>
         </div>
-        {% if user.get('type') == 'admin' %}
+        {% if current_user.tipo == 'admin' %}
         <div class="card">
             <h3>Cadastrar produto</h3>
             <p class="card-description">Adicione um novo produto ao estoque.</p>
