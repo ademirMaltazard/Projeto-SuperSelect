@@ -1,47 +1,52 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
+from flask_login import LoginManager, login_user, login_required, logout_user
+from database.db import db
+from database.Models import *
 
 app = Flask(__name__)
+ln = LoginManager(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost/superselect'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'chaveTeste'
+db.init_app(app)
+ln.login_view = 'login'
 
 # dados para testes
-user = [{
-    'name': 'Ademir',
-    'type': 'admin',
-    'username': 'Maltazard'
-    },{
-    'name': 'Zard',
-    'type': 'usuario',
-    'username': 'Zard'
-    }
-]
+products = [{'id':'00', 'name': 'teste', 'description': 'teste', 'category': 'teste', 'price': 'teste', 'expiration': 'teste'}]
 
-products = [{'id':'00', 'name': 'teste', 'description': 'teste', 'category': 'teste', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'01', 'name': 'teste1', 'description': 'teste', 'category': 'teste1', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'02', 'name': 'teste2', 'description': 'teste', 'category': 'teste2', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'03', 'name': 'teste3', 'description': 'teste', 'category': 'teste3', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'04', 'name': 'teste4', 'description': 'teste', 'category': 'teste4', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'05', 'name': 'teste5', 'description': 'teste', 'category': 'teste5', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'06', 'name': 'teste6', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'07', 'name': 'teste7', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'08', 'name': 'teste8', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'09', 'name': 'teste9', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'10', 'name': 'teste10', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'11', 'name': 'teste11', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'12', 'name': 'teste12', 'description': 'teste', 'category': 'teste6', 'price': 'teste', 'expiration': 'teste'},
-            {'id':'13', 'name': 'teste13', 'description': 'teste', 'category': 'teste7', 'price': 'teste', 'expiration': 'teste'}
-            ]
+@ln.user_loader
+def userLoader(id):
+    user = db.session.query(User).filter_by(id=id).first()
+    return user
 
-
-
-@app.route("/login")
+@app.route("/login", methods = ["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = db.session.query(User).filter_by(email=email, senha=password).first()
+        if not user:
+            print('erro')
+            alert = "Usuario ou senha invalidos!"
+            return render_template('login/index.html', alert= alert)
+
+        login_user(user)
+        return redirect(url_for('home'))
+
     return render_template("login/index.html")
 
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
 @app.route("/")
+@login_required
 def home():
-    print(user[1])
-    if user[1].get('type') == 'admin':
-        print('administrador')
-    return render_template("Home/index.html", user= user[0])
+    return render_template("Home/index.html", user = {"type": "admin" })
 
 @app.route("/admCadastrarProdutos", methods= ['GET', 'POST'])
 def productRegister():
@@ -78,8 +83,8 @@ def productsList():
                            length= len(products),
                            totalPages= totalPages,
                            currentPage= currentPage,
-                           user= user[0])
+                           user= currentUser)
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
