@@ -21,7 +21,7 @@ img {
 h1 {
     color: green;
 }
-p {
+.subtitle {
     margin-bottom: 20px;
 }
 
@@ -41,6 +41,12 @@ input {
     border: solid;
     border-color: gray;
     padding: 2px 5px;
+}
+
+.alert {
+    font-size: 12px;
+    margin-top: 3px;
+    color: #e90000;
 }
 
 .btn-submit {
