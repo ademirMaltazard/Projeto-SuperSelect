@@ -10,7 +10,7 @@ body {
     flex-direction: column;
 }
 
-.content {
+.content-area {
     margin: auto;
     width: 30vw;
     background-color: white;
