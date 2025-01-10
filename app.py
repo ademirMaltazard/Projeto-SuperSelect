@@ -88,7 +88,7 @@ def register():
 @app.route("/")
 @login_required
 def home():
-    return render_template("Home/index.html", user = {"type": "admin" })
+    return render_template("Home/index.html")
 
 @app.route("/admCadastrarProdutos", methods= ['GET', 'POST'])
 def productRegister():
@@ -124,8 +124,7 @@ def productsList():
                            products= productsToShow,
                            length= len(products),
                            totalPages= totalPages,
-                           currentPage= currentPage,
-                           user = {"type": "admin" })
+                           currentPage= currentPage,)
 
 
 if __name__ == "__main__":
