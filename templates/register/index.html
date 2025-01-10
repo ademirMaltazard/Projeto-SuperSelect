@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Super Select - Registrar-se</title>
+    <link rel="stylesheet" href=" {{ url_for('static', filename='css/loginRegister.css') }}">
+</head>
+<body>
+<div class="content-area">
+    <img src="{{ url_for('static', filename='imagens/logo_SS.png') }}" alt="logo da aplicação">
+    <h1>Super Select</h1>
+    <p class="subtitle">Registrar-se.</p>
+    <form action="{{url_for('register')}}" method="POST">
+        <label for="name">Nome:</label>
+        <input id="name" type="text" name="name" placeholder="Insira seu nome">
+        <label for="userName">Nome de usuario:</label>
+        <input id="userName" type="text" name="userName" placeholder="Insira seu nome de usuario">
+        <label for="email">Email:</label>
+        <input id="email" type="text" name="email" placeholder="Insira seu login">
+        <label for="phone">Telefone:</label>
+        <input id="phone" type="text" name="phone" placeholder="Insira seu telefone">
+        <label for="password">Senha:</label>
+        <input id="password" type="password" name="password" placeholder="Insira sua senha">
+        <label for="code">Codigo:</label>
+        <p class="description">Opcional*</p>
+        <input id="code" type="password" name="code" placeholder="Insira o código de administrador">
+        {% if alert %}
+        <p class="alert">{{ alert }}</p>
+        {% endif %}
+        <button type="submit" class="btn-submit">Cadastrar</button>
+    </form>
+
+    <div>
+        <p>Não tem uma conta? <a href="/">Registrar-se</a></p>
+    </div>
+</div>
+</body>
