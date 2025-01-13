@@ -118,6 +118,7 @@ h3 {
 
 label {
     display: flex;
+    color: #000;
     align-items: start;
     padding: 5px 5px;
 }
@@ -141,6 +142,16 @@ select {
     border: solid;
     border-color: gray;
     padding: 2px 5px;
+}
+
+.details {
+    display: flex;
+    padding: 10px 0px;
+    justify-content: space-between;
+}
+
+.prodType {
+    max-width: 100px;
 }
 
 .btn-submit {

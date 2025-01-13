@@ -8,7 +8,7 @@
         <p>Preencha os detalhes do produtos para adicioná-lo ao sistema</p>
     </section>
     <section class="content-area">
-        <form class="form-register" action="">
+        <form class="form-register" method='POST' action="">
             <label>Nome do produto:</label>
             <input type="text" name="name" placeholder="Digite o nome do produto">
             <label>Descrição:</label>
@@ -16,15 +16,25 @@
             <label>Categoria:</label>
             <select name="category">
                 <option selected>Selecione uma categoria</option>
-                <option value="1">Alimentos</option>
-                <option value="2">Bebidas</option>
-                <option value="3">Produtos de limpeza</option>
-                <option value="4">Higiene pessoal</option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Bebidas">Bebidas</option>
+                <option value="Produto de limpeza">Produtos de limpeza</option>
+                <option value="Higiene Pessoal">Higiene pessoal</option>
             </select>
             <label>Preço R$:</label>
             <input type="text" name="price" placeholder="Digite o preço do produto">
-            <label>Data de validade:</label>
-            <input type="date" name="expiration">
+            <div class="details">
+                <label>Data de validade:</label>
+                <input type="date" name="expiration">
+                <div style="display: flex;">
+                    <label>Quantidade:</label>
+                    <input type="number" name="quantity">
+                    <select class="prodType" name="prodType">
+                        <option value="und">und</option>
+                        <option value="Kg">Kg</option>
+                    </select>
+                </div>
+            </div>
             <button type="submit" class="btn-submit">Cadastrar produto</button>
         </form>
     </section>

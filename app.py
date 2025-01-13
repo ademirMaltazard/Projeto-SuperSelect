@@ -76,7 +76,7 @@ def register():
             return redirect(url_for('login', alert=alert))
 
         password_hash = hash(password)
-        newUser = User(nome= name, senha=password_hash, nomeUsuario=userName, tipo=type, email=email, telefone=phone)
+        newUser = User(nome=name, senha=password_hash, nomeUsuario=userName, tipo=type, email=email, telefone=phone)
         db.session.add(newUser)
         db.session.commit()
 
@@ -91,18 +91,25 @@ def home():
     return render_template("Home/index.html")
 
 @app.route("/admCadastrarProdutos", methods= ['GET', 'POST'])
-def productRegister():
+def registerProduct():
     if request.method == 'POST':
         name = request.form.get('name')
         description = request.form.get('description')
         category = request.form.get('category')
         price = request.form.get('price')
         expiration = request.form.get('expiration')
-        #ID deve ser adicionada automatimente pelo banco de dados
-        product = {'id' : '00', 'name': name, 'description': description, 'category': category, 'price': price, 'expiration': expiration}
-        products.append(product)
+        quantity = request.form.get('quantity')
+        prodType = request.form.get('prodType')
 
-    return render_template("productRegister/index.html", products= products, name= request.form.get('name'))
+        #ID deve ser adicionada automatimente pelo banco de dados
+        newProduct = Product(nome=name, descricao=description,categoria=category, preco=price, validade=expiration, quantidade=quantity, tipo=prodType)
+
+        db.session.add(newProduct)
+        db.session.commit()
+
+        return redirect(url_for('registerProduct'))
+
+    return render_template("registerProduct/index.html", products= products, name= request.form.get('name'))
 
 @app.route("/listagemProdutos", methods= ['GET', 'POST'])
 def productsList():
