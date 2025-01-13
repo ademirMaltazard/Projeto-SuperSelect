@@ -1,3 +1,5 @@
+from email.policy import default
+
 from database.db import db
 from flask_login import UserMixin
 
@@ -22,6 +24,7 @@ class Product(db.Model):
     preco = db.Column(db.Integer(), nullable=False)
     validade = db.Column(db.Date)
     quantidade = db.Column(db.Integer, nullable=False)
+    tipo = db.Column(db.String(10), default='und', nullable=False)
     disponibilidade = db.Column(db.Boolean, default= True, nullable=False)
 
 class Comment(db.Model):
