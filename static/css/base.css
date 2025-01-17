@@ -35,6 +35,8 @@ nav {
 .logo-area {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: white;
 }
 
 .nav-button {
@@ -198,7 +200,7 @@ th {
     font-weight: bold;
 }
 
-.th-name {
+.th-description {
     min-width: 300px;
 }
 
