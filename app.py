@@ -30,7 +30,7 @@ def hash(text):
 
 @ln.user_loader
 def userLoader(id):
-    user = db.session.query(User).filter_by(id=id).first()
+    user = User.query.filter_by(id=id).first()
     return user
 
 @app.route("/login", methods = ["GET", "POST"])
@@ -39,7 +39,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        user = db.session.query(User).filter_by(email=email, senha=hash(password)).first()
+        user = User.query.filter_by(email=email, senha=hash(password)).first()
         if not user:
             print('erro')
             alert = "Usuario ou senha invalidos!"
@@ -70,7 +70,7 @@ def register():
         if code == KEY_ADMIN:
             type = 'admin'
 
-        search_user = db.session.query(User).filter_by(email=email).first()
+        search_user = User.query.filter_by(email=email).first()
         if search_user:
             alert = 'email já cadastrado, realize o login!'
             return redirect(url_for('login', alert=alert))
@@ -91,6 +91,7 @@ def home():
     return render_template("Home/index.html")
 
 @app.route("/admCadastrarProdutos", methods= ['GET', 'POST'])
+@login_required
 def registerProduct():
     if request.method == 'POST':
         name = request.form.get('name')
@@ -112,7 +113,10 @@ def registerProduct():
     return render_template("registerProduct/index.html", products= products, name= request.form.get('name'))
 
 @app.route("/listagemProdutos", methods= ['GET', 'POST'])
+@login_required
 def productsList():
+    products = Product.query.all()
+
     startPoint = 0
     totalPages = 0
     currentPage = request.args.get('currentPage', 1, type=int)
@@ -126,12 +130,20 @@ def productsList():
     startPoint = (currentPage - 1) * 5
 
     productsToShow = products[startPoint : startPoint+5]
-    print(len(products))
     return render_template("Products/index.html",
                            products= productsToShow,
                            length= len(products),
                            totalPages= totalPages,
-                           currentPage= currentPage,)
+                           currentPage= currentPage)
+
+@app.route('/excluir-produto/<int:id>')
+@login_required
+def deleteProduct(id):
+    productForDelete = Product.query.filter_by(id=id).first()
+
+    db.session.delete(productForDelete)
+    db.session.commit()
+    return redirect(url_for('productsList'))
 
 
 if __name__ == "__main__":
