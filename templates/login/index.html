@@ -12,10 +12,13 @@
     <p>Bem vindo! faça seu login para continuar.</p>
     <form action="{{url_for('login')}}" method="POST">
         <label for="email">Email:</label>
-        <input id="email" type="text" name="email" placeholder="Insira seu login">
+        <input id="email" type="text" name="email" placeholder="Insira seu login" value="{{ email }}">
         <br/>
         <label>Senha:</label>
         <input id="password" type="password" name="password" placeholder="Insira sua senha">
+        {% if alert %}
+        <span class="alert">{{ alert }}</span>
+        {% endif %}
         <button type="submit" class="btn-submit">Entrar</button>
     </form>
 
