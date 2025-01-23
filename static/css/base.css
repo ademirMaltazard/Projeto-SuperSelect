@@ -6,7 +6,7 @@
 
 body {
     background-color: #18ab18;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
@@ -15,7 +15,7 @@ body {
 main {
     background-color: #e1e1e1;
     display: flex;
-    min-height: 80vh;
+    min-height: 80%;
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -28,8 +28,8 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 10px 30px;
-    min-height: 5vh;
-    height: 8vh;
+    min-height: 5%;
+    height: 8%;
 }
 
 .logo-area {
@@ -56,21 +56,23 @@ nav {
     background-color: #30a130;
     display: flex;
     flex-direction: column;
+    padding: 10px;
     color: white;
     align-items: center;
-    height: 20vh;
-    width: 100vw;
+    height: 20%;
+    width: 100%;
     justify-content: center;
 }
 
 h1 {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .content-area {
     background-color: #f0f0f0;
-    width: 100vw;
-    min-height: 62vh;
+    width: 100%;
+    min-height: 390px;
+    padding: 10px;
     display: flex;
     color: white;
     justify-content: space-around;
@@ -81,10 +83,11 @@ h1 {
 .card {
     color: black;
     background-color: #ffffff;
-    width: 20vw;
-    min-width: 10vw;
+    width: 18vw;
+    min-width: 155px;
     min-height: 158px;
     padding: 30px;
+    margin: 10px;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -114,7 +117,6 @@ h3 {
     width: 50vw;
     flex-direction: column;
     padding: 20px;
-    margin: 20px;
     border-radius: 10px;
 }
 
@@ -220,21 +222,69 @@ td a {
 }
 
 .btn-blue {
+    display: flex;
     background-color: #007bff;
     color: white;
+    margin: 0 2px;
+
+    .caption {
+        margin-left: 5px;
+    }
 }
 
 .btn-blue:hover {
     background-color: #0056b3;
 }
 
+.btn-yellow {
+    background-color: #feff00;
+    color: black;
+    margin: 0 2px;
+}
+
+.btn-yellow:hover {
+    background-color: #c2c300;
+}
+
 .btn-red {
     background-color: #dc3545;
     color: white;
+    margin: 0 2px;
+    padding: 8px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
 .btn-red:hover {
     background-color: #c82333;
+}
+
+/* Estilo para o modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+
+    p {
+        margin-bottom: 10px;
+    }
 }
 
 .pagination {
@@ -263,6 +313,80 @@ td a {
     height: 10px;
 }
 
+
+.comments-section {
+  max-width: 800px;
+  margin: 10px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto; /* Para adicionar rolagem ao elemento */
+  height: 300px;  /* Definir altura para que a rolagem seja ativada */
+}
+
+.comment {
+  min-width: 500px;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  font-size: 16px;
+  color: #333;
+}
+
+.comment-date {
+  font-size: 14px;
+  color: #777;
+}
+
+.comment-content h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.comment-content p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Estilo geral da barra de rolagem */
+::-webkit-scrollbar {
+  width: 12px;  /* Largura da barra de rolagem */
+  height: 12px; /* Altura da barra de rolagem (para elementos com rolagem horizontal) */
+}
+
+/* Fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+  background-color: #d6f5d6;  /* Verde bem claro */
+  border-radius: 10px;  /* Bordas arredondadas para o fundo */
+}
+
+/* Thumb da barra de rolagem (parte que você arrasta) */
+::-webkit-scrollbar-thumb {
+  background-color: #4CAF50;  /* Verde */
+  border-radius: 10px;  /* Bordas arredondadas para o thumb */
+  border: 3px solid #d6f5d6;  /* Pequena borda que combina com o fundo */
+}
+
+/* Quando o usuário estiver interagindo com a barra de rolagem */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #388e3c;  /* Verde mais escuro ao passar o mouse */
+}
+
 footer {
     width: 100vw;
     min-height: 5vh;
@@ -289,4 +413,14 @@ footer {
     border: 1px solid #fff;
     border-radius: 50%;
     margin-right: 2px;
+}
+
+@media (max-width: 1200px) {
+    .content-area {
+        height: auto;
+    }
+
+    .caption {
+        display: none;
+    }
 }
