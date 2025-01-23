@@ -43,7 +43,7 @@ def login():
         if not user:
             print('erro')
             alert = "Usuario ou senha invalidos!"
-            return render_template('login/index.html', alert= alert)
+            return render_template('login/index.html', email=email, alert= alert)
 
         login_user(user)
         return redirect(url_for('home'))
@@ -72,7 +72,7 @@ def register():
 
         search_user = User.query.filter_by(email=email).first()
         if search_user:
-            alert = 'email já cadastrado, realize o login!'
+            alert = 'Email já cadastrado, realize o login!'
             return redirect(url_for('login', alert=alert))
 
         password_hash = hash(password)
@@ -88,7 +88,7 @@ def register():
 @app.route("/")
 @login_required
 def home():
-    return render_template("Home/index.html")
+    return render_template("Home/index.html", pageTitle=' - Home')
 
 @app.route("/admCadastrarProdutos", methods= ['GET', 'POST'])
 @login_required
@@ -110,7 +110,7 @@ def registerProduct():
 
         return redirect(url_for('registerProduct'))
 
-    return render_template("registerProduct/index.html", products= products, name= request.form.get('name'))
+    return render_template("registerProduct/index.html", products= products, name= request.form.get('name'), pageTitle=' - Registrar produto')
 
 @app.route("/listagemProdutos", methods= ['GET', 'POST'])
 @login_required
@@ -134,7 +134,28 @@ def productsList():
                            products= productsToShow,
                            length= len(products),
                            totalPages= totalPages,
-                           currentPage= currentPage)
+                           currentPage= currentPage,
+                           pageTitle=' - Produtos')
+
+@app.route('/atualizar-produto/<int:id>', methods=['GET', 'POST'])
+@login_required
+def editProduct(id):
+    product = Product.query.filter_by(id=id).first()
+
+    if request.method == 'POST':
+        product.nome = request.form.get('name')
+        product.descricao = request.form.get('description')
+        product.categoria= request.form.get('category')
+        product.preco = request.form.get('price')
+        product.validade = request.form.get('expiration')
+        product.quantidade = request.form.get('quantity')
+        product.tipo = request.form.get('prodType')
+
+        db.session.commit()
+        return redirect(url_for('productsList'))
+
+    return render_template('editProduct/index.html', product= product, pageTitle= ' - Editar Produto')
+
 
 @app.route('/excluir-produto/<int:id>')
 @login_required
@@ -145,6 +166,53 @@ def deleteProduct(id):
     db.session.commit()
     return redirect(url_for('productsList'))
 
+
+@app.route('/comentarios', methods=['GET', 'POST'])
+@login_required
+def comments():
+    comments = Comment.query.all()
+
+    return render_template('Comments/index.html', pageTitle=' - Comentários', comments= comments)
+
+
+@app.route('/historico')
+@login_required
+def history():
+    historyList = []
+    products = Product.query.all()
+
+    for product in products:
+        commentsList= []
+        comments = Comment.query.filter_by(produtoID = product.id).all()
+
+        for comment in comments:
+            user = User.query.filter_by(id = comment.usuarioID).first()
+            print('user', user.nome)
+            print('comment', comment.comentario)
+            print('date', comment.dataHora)
+            objComment = {
+                'comment': comment.comentario,
+                'user': user.nome,
+                'date': comment.dataHora
+            }
+            commentsList.append(objComment)
+
+        # for comment in commentsList:
+        #     print()
+        #     print('produto:', product.nome)
+        #     print('comentario:',comment.comentario, comment.dataHora)
+
+        objProduct = {
+            'nameProduto': product.nome,
+            'comentarios': commentsList
+        }
+        historyList.append(objProduct)
+    for i in range(len(historyList)):
+        for i in historyList[i].get('comentarios'):
+            print('indice: ', i)
+            print('date', i.get('date'))
+
+    return render_template('history/index.html', pageTitle=' - Histórico')
 
 if __name__ == "__main__":
     app.run(debug=True)
