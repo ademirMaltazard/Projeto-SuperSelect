@@ -1,5 +1,3 @@
-from email.policy import default
-
 from database.db import db
 from flask_login import UserMixin
 
@@ -28,10 +26,10 @@ class Product(db.Model):
     disponibilidade = db.Column(db.Boolean, default= True, nullable=False)
 
 class Comment(db.Model):
-    __tablename__ = 'comentario'
+    __tablename__ = 'comentarios'
 
     id = db.Column(db.Integer, primary_key=True)
     comentario = db.Column(db.Text, nullable=False)
-    produto = db.Column(db.Integer, db.ForeignKey('Product.id'), nullable = False)
-    usuario = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
+    produtoID = db.Column(db.Integer, db.ForeignKey('Product.id'), nullable = False)
+    usuarioID = db.Column(db.Integer, db.ForeignKey('User.id'), nullable = False)
     dataHora = db.Column(db.DateTime, default=db.func.current_timestamp())
