@@ -1,0 +1,45 @@
+{% extends "Base/index.html" %}
+{{ super() }}
+
+{% block content %}
+<main>
+    <section class="title-area">
+        <h1>Atualizar Produto</h1>
+        <p>Preencha com os novos detalhes do produto para editá-lo no sistema</p>
+    </section>
+    <section class="content-area">
+        <form class="form-register" method='POST' action="">
+            <input type="hidden" name="idProduto" value="{{ product.id }}">
+            <label>Nome do produto:</label>
+            <input type="text" name="name" placeholder="Digite o nome do produto" value="{{ product.nome }}">
+            <label>Descrição:</label>
+            <textarea name="description" placeholder="Digite uma breve descrição">{{ product.descricao }}</textarea>
+            <label>Categoria:</label>
+            <select name="category">
+                <option selected>{{ product.categoria }}</option>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Bebidas">Bebidas</option>
+                <option value="Produto de limpeza">Produtos de limpeza</option>
+                <option value="Higiene Pessoal">Higiene pessoal</option>
+            </select>
+            <label>Preço R$:</label>
+            <input type="text" name="price" value="{{ product.preco }}" placeholder="Digite o preço do produto">
+            <div class="details">
+                <label>Data de validade:</label>
+                <input type="date" name="expiration" value="{{ product.validade }}">
+                <div style="display: flex;">
+                    <label>Quantidade:</label>
+                    <input type="number" name="quantity" value="{{ product.quantidade }}">
+                    <select class="prodType" name="prodType">
+                        <option selected>{{ product.tipo }}</option>
+                        <option value="und">und</option>
+                        <option value="Kg">Kg</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit">Confirmar edição</button>
+        </form>
+    </section>
+</main>
+
+{% endblock %}
