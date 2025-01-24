@@ -24,7 +24,7 @@
         <label for="code">Codigo*:</label>
         <input id="code" type="password" name="code" placeholder="Insira o código de administrador">
         {% if alert %}
-        <p class="alert">{{ alert }}</p>
+        <span class="alert">{{ alert }}</span>
         {% endif %}
         <button type="submit" class="btn-submit">Cadastrar</button>
     </form>
@@ -32,6 +32,12 @@
     <div>
         <p>Já possui uma conta cadastrada? <a href="{{url_for('login')}}">logar-se</a></p>
         <p class="description">*: Opcional</p>
+    </div>
+
+    <div class="github-session">
+        <a class="link-github" href="https://github.com/ademirMaltazard" target="_blank">
+            <img class="github-icon" src="{{ url_for('static', filename='imagens/github.svg') }}"> @ademirMaltazard
+        </a>.
     </div>
 </div>
 </body>
