@@ -1,0 +1,57 @@
+{% extends 'Base/index.html' %}
+
+{{ super() }}
+
+{% block content %}
+<main>
+    <section class="title-area">
+        <h1>Listagem de Produtos</h1>
+        <p> Veja todos os produtos cadastrados no sistema.</p>
+    </section>
+    <section class="content-area table-area">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th class="th-description">Descrição</th>
+                <th>Categoria</th>
+                <th>Preço (R$)</th>
+                <th>Quantidade</th>
+                <th>Data de validade</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.nome }}</td>
+                <td>{{ product.descricao }}</td>
+                <td>{{ product.categoria }}</td>
+                <td>{{ product.preco }}</td>
+                <td>{{ product.quantidade }} {{ product.tipo }}</td>
+                <td>{{ product.validade }}</td>
+                <td class="btn-action">
+                    <a href="/comentarios" class="btn-blue">
+                        <img class="pagination-icon"
+                             src="{{ url_for('static', filename='imagens/chat-square-text.svg') }}">
+                        <p class="caption">Comentários</p>
+                    </a>
+                    {% if current_user.tipo == 'admin' %}
+                    <a href="/excluir-produto/{{product.id}}" class="btn-yellow">
+                        <img class="pagination-icon" src="{{ url_for('static', filename='imagens/pencil.svg') }}">
+                    </a>
+                    <a href="/excluir-produto/{{product.id}}" class="btn-red">
+                        <img class="pagination-icon" src="{{ url_for('static', filename='imagens/trash.svg') }}">
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</main>
+
+{% endblock %}

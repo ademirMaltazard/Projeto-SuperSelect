@@ -1,0 +1,24 @@
+{% extends 'Base/index.html' %}
+{{ super() }}
+
+{% block content %}
+<section class="title-area">
+    <h1>Comentários</h1>
+    <p> Veja todos os comentarios sobre os produtos.</p>
+</section>
+<div class="comments-section">
+
+    {% for comment in comments %}
+    <div class="comment">
+        <div class="comment-header">
+            <span class="user-name">{{ comment.usuarioID }}</span>
+            <span class="comment-date">{{ comment.dataHora }}</span>
+        </div>
+        <div class="comment-content">
+            <h3>Produto: {{ comment.produtoID }}</h3>
+            <p>{{ comment.comentario }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
