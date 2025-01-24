@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Super Select</title>
+    <title>Super Select {{ pageTitle }}</title>
     <link rel="stylesheet" href=" {{ url_for('static', filename='css/base.css') }}">
 </head>
 <body>
@@ -13,8 +13,12 @@
         <h2>Super Select</h2>
     </a>
     <div class="butons">
+        {% if pageTitle == ' - Produtos' and current_user.tipo == 'admin' %}
+        <a class="nav-button" href="/admCadastrarProdutos">Cadastrar produtos</a>
+        {% elif pageTitle != ' - Produtos' %}
         <a class="nav-button" href="/listagemProdutos">Produtos</a>
-        <a class="nav-button" href="/">Relatórios</a>
+        {% endif %}
+        <a class="nav-button" href="{{ url_for('history') }}">Histórico</a>
         <a class="nav-button" href="/">Configurações</a>
         <a class="nav-button" href="/logout">Sair</a>
     </div>
@@ -26,7 +30,7 @@
 
 <footer>
     2024 SuperSelect. Todos os direitos reservados à:
-        <a class="link-github" href="https://github.com/ademirMaltazard">
+        <a class="link-github" href="https://github.com/ademirMaltazard" target="_blank">
             <img class="github-icon" src="{{ url_for('static', filename='imagens/github.svg') }}"> @ademirMaltazard
         </a>.
 </footer>
