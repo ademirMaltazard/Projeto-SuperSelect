@@ -13,9 +13,11 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th class="th-name">Nome do produto</th>
+                    <th>Nome</th>
+                    <th class="th-description">Descrição</th>
                     <th>Categoria</th>
                     <th>Preço (R$)</th>
+                    <th>Quantidade</th>
                     <th>Data de validade</th>
                     <th>Ações</th>
                 </tr>
@@ -23,20 +25,26 @@
                 <tbody>
                 {% for product in products %}
                 <tr>
-                    <td>00</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.category }}</td>
-                    <td>{{ product.price }}</td>
-                    <td>{{ product.expiration }}</td>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.nome }}</td>
+                    <td>{{ product.descricao }}</td>
+                    <td>{{ product.categoria }}</td>
+                    <td>{{ product.preco }}</td>
+                    <td>{{ product.quantidade }} {{ product.tipo }}</td>
+                    <td>{{ product.validade }}</td>
                     <td class="btn-action">
-                        <a href="/" class="btn-blue">
+                        <a href="/comentarios" class="btn-blue">
                             <img class="pagination-icon" src="{{ url_for('static', filename='imagens/chat-square-text.svg') }}">
-                            Comentários
+                            <p class="caption">Comentários</p>
                         </a>
-                        <a href="/" class="btn-red">
+                        {% if current_user.tipo == 'admin' %}
+                        <a href="/atualizar-produto/{{ product.id }}" class="btn-yellow">
+                            <img class="pagination-icon" src="{{ url_for('static', filename='imagens/pencil.svg') }}">
+                        </a>
+                        <button class="openModalBtn btn-red" data-produto-id="{{ product.id }}">
                             <img class="pagination-icon" src="{{ url_for('static', filename='imagens/trash.svg') }}">
-                            Deletar
-                        </a>
+                        </button>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
@@ -62,5 +70,38 @@
             {% endif %}
         {% endif %}
     </section>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <h2>Deletar Produto</h2>
+            <p>Você tem certeza que deseja deletar este produto?</p>
+            <a id="deleteBtn" href="#" class="btn-red">Deletar Produto</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var modal = $('#myModal');
+            var closeBtn = $('.close-btn');
+            var deleteBtn = $('#deleteBtn');
+
+            // Quando o usuário clica no botão "Deletar"
+            $('.openModalBtn').click(function() {
+                var produtoId = $(this).data('produto-id');
+                deleteBtn.attr('href', '/excluir-produto/' + produtoId); // Atualiza o link de deletar
+
+                modal.show(); // Abre o modal
+            });
+
+            // Quando o usuário clica fora do modal, ele fecha
+            $(window).click(function(event) {
+                if ($(event.target).is(modal)) {
+                    modal.hide();
+                }
+            });
+        });
+    </script>
 </main>
 {% endblock %}
